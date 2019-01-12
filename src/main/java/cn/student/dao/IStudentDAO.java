@@ -21,5 +21,4 @@ public interface IStudentDAO {
 
     public int addStudent(Student student) throws Exception;
 
-    public int checkStuName(Student student) throws Exception;
 }
