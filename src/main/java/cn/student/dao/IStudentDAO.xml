@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.student.dao.IStudentDAO">
+    <select id="doLogin" resultType="Student">
+        select * from student
+        where stuname = #{param1} and stupwd = #{param2}
+    </select>
+
+    <select id="getOnePageData" resultType="StudentModel">
+        select * from student,province,city,county
+        where student.stuproid = province.provinceid
+        and province.provinceid = city.proid
+        and city.cityid = county.cityid
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                and stuName like CONCAT(CONCAT('%',#{param}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="loadProvince" resultType="Province">
+        select * from province
+    </select>
+
+    <select id="loadCity" resultType="City">
+        select * from city where proid = #{proId}
+    </select>
+
+    <select id="loadCounty" resultType="County">
+        select * from county where cityid = #{cityId}
+    </select>
+
+    <insert id="addStudent">
+        insert into student(stuname,stupwd,stuproid,stucityid,stucountyid)
+        values (#{stuName},#{stuPwd},#{stuProId},#{stuCityId},#{stuCountyId})
+    </insert>
+
+    <select id="checkStuName" resultType="int">
+        select count(*) from student where stuname=#{stuName}
+    </select>
+</mapper>
