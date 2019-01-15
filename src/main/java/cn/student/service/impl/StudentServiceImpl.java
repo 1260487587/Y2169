@@ -51,4 +51,8 @@ public class StudentServiceImpl implements IStudentService {
     public int checkStuName(Student student) throws Exception {
         return dao.addStudent(student);
     }
+
+    public void test(){
+
+    }
 }
